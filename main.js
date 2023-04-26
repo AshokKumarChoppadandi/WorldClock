@@ -31,7 +31,6 @@ function updateTimezone(selectedTimezone) {
 searchInput = wrapper.querySelector("input");
 
 searchInput.addEventListener("keyup", () => {
-    let filterTimezones = [];
     let searchedTimezone = searchInput.value;
     filteredTimezones = timezonesList.filter(timezone => {
         return timezone.toLowerCase().includes(searchedTimezone);
@@ -39,16 +38,11 @@ searchInput.addEventListener("keyup", () => {
     options.innerHTML = filteredTimezones ? filteredTimezones : `<p>Oops! Timezone not found</p>`;
 });
 
-document.getElementById("timezonesList").addEventListener('click', function(event) {
-    event.stopPropagation();
-});
-
-window.onclick = function(event) {
-    const dropDowns = document.getElementsByClassName("select-button");
-    for(let item of dropDowns) {
-        console.log("Items :: " + item.classList.toString);
-        if(item.classList.contains("active")) {
-            item.classList.remove("active");
-        }
+window.onload = function(e) {
+    const arr = ["span", "uil uil-angle-down", "uil uil-search", "input", "select-button"];
+    document.onclick = function(event) {
+        const targetValue = event.target.classList.value;
+        if(!arr.includes(targetValue))
+            sideMenu.classList.remove("active");
     }
 }
